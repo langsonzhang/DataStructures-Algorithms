@@ -1,14 +1,37 @@
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
 
+    // Usage: java Solution [optional: num1 ... numN]
     public static void main(String[] args) {
-        int[] input = new int[args.length-1];
-        for (int i = 1; i < args.length; i++) {
-            input[i-1] = Integer.parseInt(args[i]);
+        int[] input;
+        if (args.length > 1) {
+            input = new int[args.length-1];
+            for (int i = 1; i < args.length; i++) {
+                input[i-1] = Integer.parseInt(args[i]);
+            }
         }
+        else {
+            input = new int[1000000];
+            Random rand = new Random();
+            for (int i = 0; i < input.length; i++) {
+                input[i] = rand.nextInt(input.length*5) - input.length;
+            }
+        }
+
+
         Solution sol = new Solution();
+        Solution2 sol2 = new Solution2();
+
+        double startTime = System.currentTimeMillis();
         System.out.println(sol.longestConsecutive(input));
+        double endTime = System.currentTimeMillis();
+        System.out.println("Time to run sol w/ DJS: "+(endTime-startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
+        System.out.println(sol2.longestConsecutive(input));
+        endTime = System.currentTimeMillis();
+        System.out.println("Time to run sol w/ HashSet: "+(endTime-startTime) + "ms");
     }
     
     HashMap<Integer, Integer> parent;
@@ -22,7 +45,6 @@ class Solution {
         if (nums.length == 0) {
             return 0;
         }
-        double startTime = System.currentTimeMillis();
         parent = new HashMap<Integer, Integer>();
         rank = new HashMap<Integer, Integer>();
         size = new HashMap<Integer, Integer>();
@@ -35,8 +57,6 @@ class Solution {
             union(nums[i], nums[i]+1);
             union(nums[i], nums[i]-1);
         }
-        double endTime = System.currentTimeMillis();
-        System.out.println("Time to run: "+(endTime-startTime) + "ms");
         return longest;
         
     }
@@ -107,5 +127,32 @@ class Solution {
         }
     
         
+    }
+}
+
+class Solution2 {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> num_set = new HashSet<Integer>();
+        for (int num : nums) {
+            num_set.add(num);
+        }
+
+        int longestStreak = 0;
+
+        for (int num : num_set) {
+            if (!num_set.contains(num-1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (num_set.contains(currentNum+1)) {
+                    currentNum += 1;
+                    currentStreak += 1;
+                }
+
+                longestStreak = Math.max(longestStreak, currentStreak);
+            }
+        }
+
+        return longestStreak;
     }
 }
