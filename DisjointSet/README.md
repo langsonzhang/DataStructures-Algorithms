@@ -1,4 +1,4 @@
-<h5>Programming (leetcode) problems solved using DJS with path compression and union by rank heuristics.</h5>
+<h5>Programming problems solved using DJS with path compression and union by rank heuristics.</h5>
 
 DJS:\
 makeSet(int n); - O(1)\
