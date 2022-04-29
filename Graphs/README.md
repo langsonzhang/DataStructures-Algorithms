@@ -4,4 +4,5 @@ Algorithm's Used:\
 Prim's Algorithm\
 Kruskal's Algorithm\
 BFS\
-DFS
+DFS\
+Inorder, Preorder, Postorder tree traversals
