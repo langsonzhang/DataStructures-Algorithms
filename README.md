@@ -1,7 +1,7 @@
 # DataStructures-Algorithms
 Implementations of data structures and algorithms I learned at UofT.
 
-Highlights of Content:
+Highlights of content:
 - Balanced BST (AVL Tree)
 - Heaps/PriorityQueue
 - Hashmaps
