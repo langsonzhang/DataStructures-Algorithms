@@ -7,6 +7,8 @@
 
 # You may assume that two distinct treasures differ in at least one of the two parameters i.e., for distinct i and j, either xi ̸= xj or yi ̸= yj.
 
+
+
 class Treasure:
     x: int
     y: int
@@ -28,24 +30,34 @@ def getValuable(treasures: [Treasure]) -> [Treasure]:
 
 def merge(left, right):
     ret = []
+
+    # pointers for left and right
     l = 0; r = 0
     while (l < len(left) and r < len(right)):
+        # get the treasures to consider
         lt = left[l]
         rt = right[r]
+
         if (lt.x < rt.x):
             if lt.y > rt.y:
+                # lt valuable so add it
                 ret.append(lt)
             l += 1
         elif lt.x == rt.x:
             if lt.y > rt.y:
+                # lt valuable, rt not valuable
                 ret.append(lt)
             else:
+                # rt valuable, lt not valuable
                 ret.append(rt)
             l += 1; r += 1
         else:
             if rt.y > lt.y:
+                # rt valuable
                 ret.append(rt)
             r += 1
+
+    # any remaining ones must be valuable, as their x values must be strictly greater than everything else
     if l < len(left):
         ret += left[l:]
     if r < len(right):
